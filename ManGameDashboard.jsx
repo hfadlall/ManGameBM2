@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 const PASSWORD = "12";
 
@@ -381,6 +382,7 @@ export default function App() {
           nav { overflow-x: auto; }
         }
       `}</style>
+      <Analytics />
     </div>
   );
 }
