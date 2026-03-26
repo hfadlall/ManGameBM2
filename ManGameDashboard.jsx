@@ -61,13 +61,50 @@ function CountdownUnit({ value, label }) {
   );
 }
 
+// ─── Graduation Cap SVG ───
+function GradCap({ size = 28, color = "#d5d0c8", style = {} }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 64 64" fill="none" style={style}>
+      <polygon points="32,8 4,24 32,40 60,24" fill={color} />
+      <polygon points="32,8 4,24 32,40 60,24" fill="none" stroke={color} strokeWidth="1" opacity="0.5" />
+      <rect x="30" y="24" width="4" height="22" rx="1" fill={color} opacity="0.7" />
+      <path d="M34 46 Q34 52 40 54" stroke={color} strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.6" />
+      <circle cx="40" cy="54" r="2" fill={color} opacity="0.5" />
+    </svg>
+  );
+}
+
 // ─── Graduation Countdown Page ───
 function CountdownPage() {
   const [time, setTime] = useState(getTimeLeft());
   useEffect(() => { const i = setInterval(() => setTime(getTimeLeft()), 1000); return () => clearInterval(i); }, []);
+
+  const caps = [
+    { top: "8%", left: "8%", size: 30, delay: "0s", duration: "6s", rotate: -15, opacity: 0.25 },
+    { top: "12%", right: "10%", size: 24, delay: "1.5s", duration: "7s", rotate: 12, opacity: 0.2 },
+    { bottom: "18%", left: "12%", size: 22, delay: "0.8s", duration: "5.5s", rotate: -8, opacity: 0.18 },
+    { bottom: "14%", right: "8%", size: 26, delay: "2.2s", duration: "6.5s", rotate: 20, opacity: 0.22 },
+    { top: "45%", left: "4%", size: 18, delay: "3s", duration: "7.5s", rotate: -25, opacity: 0.15 },
+    { top: "40%", right: "5%", size: 20, delay: "1s", duration: "6s", rotate: 10, opacity: 0.17 },
+  ];
+
   return (
-    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 20px" }}>
-      <div style={{ textAlign: "center", maxWidth: 640, animation: "fadeUp 1s ease both" }}>
+    <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 20px", position: "relative", overflow: "hidden" }}>
+      {/* Floating graduation caps */}
+      {caps.map((cap, i) => (
+        <div key={i} style={{
+          position: "absolute",
+          top: cap.top, bottom: cap.bottom, left: cap.left, right: cap.right,
+          opacity: cap.opacity,
+          transform: `rotate(${cap.rotate}deg)`,
+          animation: `capFloat ${cap.duration} ease-in-out ${cap.delay} infinite`,
+          pointerEvents: "none",
+        }}>
+          <GradCap size={cap.size} color="#c5bfb3" />
+        </div>
+      ))}
+
+      <div style={{ textAlign: "center", maxWidth: 640, animation: "fadeUp 1s ease both", position: "relative", zIndex: 1 }}>
         <div style={{ fontSize: 12, letterSpacing: 5, textTransform: "uppercase", color: "#bbb", marginBottom: 24 }}>Carnegie Mellon University Qatar</div>
         <h1 style={{ fontSize: 42, fontWeight: 400, color: "#1a1a1a", margin: "0 0 12px 0", lineHeight: 1.25, fontFamily: "'Cormorant Garamond', Georgia, serif" }}>
           Class of 2026
@@ -334,6 +371,7 @@ export default function App() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
         @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes capFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         * { box-sizing: border-box; margin: 0; }
         ::selection { background: rgba(0,0,0,0.08); }
         ::-webkit-scrollbar { width: 6px; }
