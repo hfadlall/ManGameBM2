@@ -80,12 +80,12 @@ function CountdownPage() {
   useEffect(() => { const i = setInterval(() => setTime(getTimeLeft()), 1000); return () => clearInterval(i); }, []);
 
   const caps = [
-    { top: "8%", left: "8%", size: 30, delay: "0s", duration: "6s", rotate: -15, opacity: 0.25 },
-    { top: "12%", right: "10%", size: 24, delay: "1.5s", duration: "7s", rotate: 12, opacity: 0.2 },
-    { bottom: "18%", left: "12%", size: 22, delay: "0.8s", duration: "5.5s", rotate: -8, opacity: 0.18 },
-    { bottom: "14%", right: "8%", size: 26, delay: "2.2s", duration: "6.5s", rotate: 20, opacity: 0.22 },
-    { top: "45%", left: "4%", size: 18, delay: "3s", duration: "7.5s", rotate: -25, opacity: 0.15 },
-    { top: "40%", right: "5%", size: 20, delay: "1s", duration: "6s", rotate: 10, opacity: 0.17 },
+    { top: "8%", left: "8%", size: 44, delay: "0s", duration: "6s", rotate: -15, opacity: 0.35 },
+    { top: "12%", right: "10%", size: 38, delay: "1.5s", duration: "7s", rotate: 12, opacity: 0.3 },
+    { bottom: "18%", left: "12%", size: 34, delay: "0.8s", duration: "5.5s", rotate: -8, opacity: 0.28 },
+    { bottom: "14%", right: "8%", size: 40, delay: "2.2s", duration: "6.5s", rotate: 20, opacity: 0.32 },
+    { top: "45%", left: "4%", size: 30, delay: "3s", duration: "7.5s", rotate: -25, opacity: 0.25 },
+    { top: "40%", right: "5%", size: 32, delay: "1s", duration: "6s", rotate: 10, opacity: 0.27 },
   ];
 
   return (
@@ -100,7 +100,7 @@ function CountdownPage() {
           animation: `capFloat ${cap.duration} ease-in-out ${cap.delay} infinite`,
           pointerEvents: "none",
         }}>
-          <GradCap size={cap.size} color="#c5bfb3" />
+          <GradCap size={cap.size} color="#6b6560" />
         </div>
       ))}
 
